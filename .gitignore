@@ -1,0 +1,40 @@
+# ---------- 发布产物 ----------
+# release/ 里是打包好的 zip，随时可由源码重新生成，不进仓库
+release/
+*.zip
+*.rar
+
+# ---------- 编译 / 构建产物 ----------
+# 二进制无法 review，也容易和源码不同步
+dist/
+build/
+bin/
+*.exe
+*.dll
+*.pdb
+
+# ---------- 依赖目录 ----------
+# 克隆后自己安装，不提交
+node_modules/
+
+# ---------- 测试与开发临时产物 ----------
+tests/samples/
+tests/last-run.txt
+tests/*-last-run.txt
+__*.txt
+_*.js
+*.log
+
+# ---------- 密钥 / 证书 ----------
+# 私钥、签名产物一旦提交就是事故
+*.pem
+*.key
+*.crx
+*.xpi
+
+# ---------- 编辑器与操作系统 ----------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
