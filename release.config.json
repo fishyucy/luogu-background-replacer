@@ -1,0 +1,29 @@
+{
+  "owner": "fishyucy",
+  "repo": "luogu-background-replacer",
+  "projectDir": "D:/Desktop/浏览器插件/luogu-background-replacer",
+  "outDir": "D:/Desktop/浏览器插件/luogu-background-replacer/release",
+  "versionFrom": "manifest.json",
+  "tag": "v{version}",
+  "title": "v{version} — 洛谷背景替换 / Luogu Background Replacer",
+  "notes": "release-notes.md",
+  "cleanOutDir": true,
+  "assets": [
+    {
+      "type": "zip",
+      "name": "luogu-background-replacer-v{version}.zip",
+      "base": ".",
+      "files": [
+        "manifest.json",
+        "content.js",
+        "theme.css",
+        "popup.html",
+        "popup.css",
+        "popup.js",
+        "icons",
+        "README.md",
+        "LICENSE"
+      ]
+    }
+  ]
+}

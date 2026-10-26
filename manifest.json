@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "洛谷背景替换",
+  "version": "1.1.0",
+  "description": "把洛谷的页面背景换成你自己的图片：支持本地图片与图片直链，可调亮度和模糊，支持顶部横幅、整页铺满两种模式。",
+  "permissions": [
+    "storage",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "*://*.luogu.com.cn/*",
+    "*://luogu.com.cn/*",
+    "*://*.luogu.org/*",
+    "*://*.luogu.com/*"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "洛谷背景替换",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.luogu.com.cn/*",
+        "*://luogu.com.cn/*",
+        "*://*.luogu.org/*",
+        "*://*.luogu.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "theme.css"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ]
+}

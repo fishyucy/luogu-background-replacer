@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>洛谷背景替换</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="icons/icon48.png" alt="" class="brand-icon">
+      <div class="brand-text">
+        <h1>洛谷背景替换</h1>
+        <p id="status" class="status">正在读取…</p>
+      </div>
+    </div>
+    <label class="switch" title="启用 / 停用">
+      <input type="checkbox" id="enabled">
+      <span class="track"><span class="knob"></span></span>
+    </label>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="seg" id="sourceSeg">
+        <button type="button" data-source="local">本地图片</button>
+        <button type="button" data-source="url">图片 URL</button>
+      </div>
+
+      <div id="localPanel">
+        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif,image/avif" hidden>
+        <button type="button" id="dropZone" class="dropzone">
+          <span class="dz-icon">＋</span>
+          <span class="dz-title">选择本地图片</span>
+          <span class="dz-sub">也可以直接拖进来 · 自动压缩到 2560px</span>
+        </button>
+        <div class="preview-row" id="previewRow" hidden>
+          <span class="preview" id="preview"></span>
+          <span class="preview-meta">
+            <span class="file-name" id="fileName">—</span>
+            <span class="file-actions">
+              <button type="button" class="link" id="changeImage">更换</button>
+              <button type="button" class="link danger" id="removeImage">移除</button>
+            </span>
+          </span>
+        </div>
+        <p class="hint" id="localHint" hidden></p>
+      </div>
+
+      <div id="urlPanel" hidden>
+        <div class="url-row">
+          <input type="url" id="urlInput" placeholder="https://…/bg.jpg" spellcheck="false" autocomplete="off">
+          <button type="button" class="primary" id="applyUrl">应用</button>
+        </div>
+        <div class="url-preview" id="urlPreview">可以直接粘贴洛谷的背景图地址</div>
+        <p class="hint" id="urlHint">支持 http / https 图片直链，需要允许跨域之外链能正常显示。</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>显示模式</h2>
+      <div class="modes">
+        <label class="mode">
+          <input type="radio" name="mode" value="banner">
+          <span class="mode-body">
+            <span class="mode-name">顶部横幅</span>
+            <span class="mode-desc">顶部 400px 渐隐</span>
+          </span>
+        </label>
+        <label class="mode">
+          <input type="radio" name="mode" value="full">
+          <span class="mode-body">
+            <span class="mode-name">整页铺满</span>
+            <span class="mode-desc">固定全屏不滚动</span>
+          </span>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="slider-head"><span>亮度</span><output id="brightnessOut">100%</output></div>
+      <input type="range" id="brightness" min="20" max="150" step="5" value="100">
+      <div class="slider-head"><span>模糊</span><output id="blurOut">0px</output></div>
+      <input type="range" id="blur" min="0" max="24" step="1" value="0">
+    </section>
+  </main>
+
+  <footer class="footer">
+    <button type="button" class="link" id="reset">恢复默认</button>
+    <a href="https://www.luogu.com.cn/problem/list" target="_blank" rel="noreferrer">打开洛谷试试 ↗</a>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

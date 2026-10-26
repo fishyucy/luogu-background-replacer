@@ -1,0 +1,95 @@
+/* 洛谷背景替换 —— 注入样式
+ *
+ * 洛谷在 .theme-page 上用内联样式写 --theme-body-image / --theme-body-image-size /
+ * --theme-body-mid-mask 等变量，::before 负责真正绘制。内联声明优先级最高，
+ * 所以这里统一用 !important 的样式表规则（!important 可以压过非重要的内联声明）。
+ */
+
+html[data-lgbg-on="1"] .theme-page {
+  --theme-body-image: var(--lgbg-image, none) !important;
+  --theme-body-image-repeat: no-repeat !important;
+  --theme-body-image-size: cover !important;
+  --theme-body-color: none !important;
+  --theme-body-color-filter: var(--lgbg-filter, none) !important;
+}
+
+html[data-lgbg-on="1"] .theme-page::before {
+  transition: filter 160ms ease;
+}
+
+/* ---------- 顶部横幅：顶部 400px，向下渐隐 ---------- */
+html[data-lgbg-on="1"][data-lgbg-mode="banner"] .theme-page {
+  --theme-body-image-position: 0 0 !important;
+  --theme-body-mid-mask: linear-gradient(to bottom, #000 0, transparent 400px) !important;
+}
+
+html[data-lgbg-on="1"][data-lgbg-mode="banner"] .theme-page::before {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  left: 0 !important;
+  width: auto !important;
+  height: 400px !important;
+  -webkit-mask-image: var(--theme-body-mid-mask, none) !important;
+  mask-image: var(--theme-body-mid-mask, none) !important;
+}
+
+/* ---------- 整页铺满：固定全屏，不随页面滚动 ---------- */
+html[data-lgbg-on="1"][data-lgbg-mode="full"] .theme-page {
+  --theme-body-image-position: 50% 50% !important;
+  --theme-body-mid-mask: none !important;
+}
+
+html[data-lgbg-on="1"][data-lgbg-mode="full"] .theme-page::before {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: auto !important;
+  height: 100vh !important;
+  transform: scale(1.06);
+  transform-origin: center center;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+/* ---------- 经典首页 https://www.luogu.com.cn/ ----------
+ * 首页没有 .theme-page，背景挂在 .main-container 上：
+ * 用 isolation + 负 z-index 的伪元素垫在内容和灰色底色之间，
+ * 半透明的 .lg-article 卡片会自然透出图片。
+ */
+html[data-lgbg-on="1"] .main-container {
+  position: relative;
+  isolation: isolate;
+}
+
+/* 首页内容层的 <main> 自己也有灰底，会挡住伪元素，去掉它、保留 .main-container 的底色 */
+html[data-lgbg-on="1"] .main-container main {
+  background-color: transparent !important;
+}
+
+html[data-lgbg-on="1"] .main-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--lgbg-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  filter: var(--lgbg-filter, none);
+}
+
+/* 首页 · 顶部横幅 */
+html[data-lgbg-on="1"][data-lgbg-mode="banner"] .main-container::before {
+  bottom: auto;
+  height: 400px;
+  background-attachment: scroll;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, transparent 400px);
+  mask-image: linear-gradient(to bottom, #000 0, transparent 400px);
+}
+
